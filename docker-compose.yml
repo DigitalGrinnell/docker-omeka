@@ -3,20 +3,22 @@ version: "3"
 services:
   mysql:
     image: mysql
+    container_name: "mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: omeka
-      MYSQL_DATABASE: omeka
-      MYSQL_USER: omeka
-      MYSQL_PASSWORD: omeka
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   omeka:
     image: erochest/omeka
+    container_name: "omeka"
     ports:
       - "8888:80"
     links:
       - mysql
     environment:
-      MYSQL_DBNAME: omeka
-      MYSQL_USER: omeka
-      MYSQL_PASSWORD: omeka
+      MYSQL_DBNAME: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - mysql
